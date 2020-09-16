@@ -7,10 +7,6 @@ const useStyles = makeStyles((theme) => ({
     '& > *': {
       margin: theme.spacing(1),
     },
-  },
-  myStyle: {
-      padding : '20px',
-      color: "red"
   }
 }));
 
@@ -18,8 +14,8 @@ export default function ContainedButtons() {
   const classes = useStyles();
 
   return (
-    <div>
-      <Button className={classes.myStyle} variant="contained">Default</Button>
+    <div className={classes.root}>
+      <Button variant="contained">Default</Button>
       <Button variant="contained" color="primary">
         Primary
       </Button>
