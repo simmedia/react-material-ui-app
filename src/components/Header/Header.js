@@ -16,6 +16,9 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import HomeIcon from "@material-ui/icons/Home";
+import PersonIcon from "@material-ui/icons/Person";
+import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
+import Avatar from "@material-ui/core/Avatar";
 
 import { useHistory } from "react-router-dom";
 
@@ -58,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
   },
   content: {
     flexGrow: 1,
@@ -132,6 +135,12 @@ const PersistentDrawerLeft = () => {
         }}
       >
         <div className={classes.drawerHeader}>
+          <Avatar
+            alt="Remy Sharp"
+            src="/broken-image.jpg"
+            className={classes.orange}
+          />
+
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon />
@@ -147,6 +156,18 @@ const PersistentDrawerLeft = () => {
               <HomeIcon />
             </ListItemIcon>
             <ListItemText primary="Home" />
+          </ListItem>
+          <ListItem onClick={() => handleClick("/users")} button key="Users">
+            <ListItemIcon>
+              <PersonIcon />
+            </ListItemIcon>
+            <ListItemText primary="Users" />
+          </ListItem>
+          <ListItem onClick={() => handleClick("/todo")} button key="Todos">
+            <ListItemIcon>
+              <FormatListBulletedIcon />
+            </ListItemIcon>
+            <ListItemText primary="Todos" />
           </ListItem>
         </List>
         <Divider />

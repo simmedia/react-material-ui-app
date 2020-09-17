@@ -2,6 +2,7 @@ import React from "react";
 // import './App.css';
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+import Container from "@material-ui/core/Container";
 
 // router
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -10,12 +11,16 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Header } from "./components/Header";
 import { Button } from "./components/Buttons";
 
-import Inbox from "./Inbox";
+import Home from "./pages/Home";
+import Users from "./pages/Users";
+import Todos from "./pages/Todo";
 
 const useStyles = makeStyles((theme) => ({
   centerElement: {
-    margin: "0 auto",
-    width: "1366px",
+    marginTop: "100px",
+    border: "2px solid red",
+    // width: "1366px",
+    // padding: "20px",
   },
 }));
 
@@ -27,18 +32,21 @@ function App() {
     <Router>
       <div className="App">
         <Header lname="Simic" />
-        <div
-          className={classes.centerElement}
-          style={{ width: 100 + "%", maxWidth: 1200 + "px" }}
-        >
-          <Grid className={classes.root} container spacing={0}>
+        <Container className={classes.centerElement} maxWidth="lg">
+          <Grid container>
             <Switch>
               <Route path="/home">
-                <Inbox />
+                <Home />
+              </Route>
+              <Route path="/users">
+                <Users />
+              </Route>
+              <Route path="/todo">
+                <Todos />
               </Route>
             </Switch>
           </Grid>
-        </div>
+        </Container>
       </div>
     </Router>
   );
