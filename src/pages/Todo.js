@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-
-import useGlobal from "../store";
 
 const useStyles = makeStyles((theme) => ({
   doneTodo: {
@@ -25,13 +23,12 @@ const Todo = ({ todo, index, todoDone }) => {
 const Todos = (props) => {
   const [todos, setTodos] = useState([]);
   const [todo, setTodo] = useState({ text: "", completed: false });
+  // const [state, dispatch] = useContext(TodoContext);
 
   const addTodo = () => {
-    console.log(todo);
-    if (!todo.text) return;
-    const newTodos = [...todos, todo];
-    setTodos(newTodos);
-    setTodo({ text: "", completed: false });
+    // console.log(todo);
+    // if (!todo.text) return;
+    // dispatch({ type: "ADD_TODO", payload: todo });
   };
 
   const todoDone = (index) => {

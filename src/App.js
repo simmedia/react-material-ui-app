@@ -4,6 +4,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 
+import Store from "./store/Store";
+
 // router
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -29,26 +31,28 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles();
   return (
-    <Router>
-      <div className="App">
-        <Header lname="Simic" />
-        <Container className={classes.centerElement} maxWidth="lg">
-          <Grid container>
-            <Switch>
-              <Route path="/home">
-                <Home />
-              </Route>
-              <Route path="/users">
-                <Users />
-              </Route>
-              <Route path="/todo">
-                <Todos />
-              </Route>
-            </Switch>
-          </Grid>
-        </Container>
-      </div>
-    </Router>
+    <Store>
+      <Router>
+        <div className="App">
+          <Header lname="Simic" />
+          <Container className={classes.centerElement} maxWidth="lg">
+            <Grid container>
+              <Switch>
+                <Route path="/home">
+                  <Home />
+                </Route>
+                <Route path="/users">
+                  <Users />
+                </Route>
+                <Route path="/todo">
+                  <Todos />
+                </Route>
+              </Switch>
+            </Grid>
+          </Container>
+        </div>
+      </Router>
+    </Store>
   );
 }
 

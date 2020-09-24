@@ -1,37 +1,74 @@
 import { SentimentSatisfied } from "@material-ui/icons";
-import React, { useState, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
+import axios from "axios";
 
-import MaterialTableDemo from "../components/Table/Table";
+import { Context } from "../store/Store";
 
 const Users = (props) => {
-  const [usersList, setUsersList] = useState([
-    // { name: "Stefan", surname: "Simic", birthYear: 1992, birthCity: 63 },
-  ]);
-
-  const fetchUsers = async () => {
-    const response = await fetch("https://jsonplaceholder.typicode.com/users");
-    const data = await response.json();
-    console.log(data);
-    const users = data;
-    setUsersList(users);
-  };
+  const [state, dispatch] = useContext(Context);
 
   useEffect(() => {
-    fetchUsers();
+    fetch(
+      "https://nuxt-dashboard-25a89.firebaseio.com/nuxt-dashboard-25a89.json"
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        const arr = [];
+        for (let key in data) {
+          arr.push(data[key]);
+        }
+        dispatch({ type: "SET_POSTS", payload: arr });
+      })
+      .catch((error) => {
+        dispatch({ type: "SET_ERROR", payload: error });
+      });
   }, []);
 
-  // const addUser = (e) => {
-  //   const newData = [...usersList, e];
-  //   setUsersList(newData);
-  // };
+  const addPost = (e) => {
+    const newPost = {
+      name: "Stefan",
+      age: 26,
+    };
+    fetch(
+      "https://nuxt-dashboard-25a89.firebaseio.com/nuxt-dashboard-25a89.json",
+      {
+        method: "POST",
+        body: JSON.stringify(newPost),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }
+    )
+      .then((response) => {
+        const postsData = response.data;
+        dispatch({ type: "ADD_POST", payload: newPost });
+      })
+      .catch((error) => {
+        dispatch({ type: "SET_ERROR", payload: error });
+      });
+  };
+
+  // let posts = <p>Loading...</p>;
+
+  // if (state.error) {
+  //   posts = (
+  //     <p>
+  //       Something went wrong: <span>{state.error}</span>
+  //     </p>
+  //   );
+  // }
+
+  // if (!state.error && state.posts) {
+  //   posts = state.posts.map((post) => {
+  //     return <li key={post.id}>{post.title}</li>;
+  //   });
+  // }
 
   return (
     <div>
-      <h2>Users</h2>
-      <MaterialTableDemo
-        sayHello={() => console.log("hello")}
-        usersList={usersList}
-      />
+      {JSON.stringify(state.posts.length)}
+
+      <button onClick={() => addPost()}>get users</button>
     </div>
   );
 };
